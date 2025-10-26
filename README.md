@@ -4,14 +4,10 @@ A lifespan resilience model to understand resilience psychosocial mechanisms
 File Overview
 
 A1: Trauma–Mental Health Correlations
-	•	A1_1_Cor_Trauma_Mental_all_Group.R
-Computes correlations between trauma exposure and mental health outcomes in the entire UKB sample.
-	•	A1_2_Cor_Trauma_Mental_in_Different_Group.R
-Examines differences in trauma–mental health correlations across resilience groups.
-	•	A1_3_Cor_Trauma_Mental_in_Different_Group_Sensitive_Analysis.R
-Performs sensitivity analysis using resilience as a continuous variable.
-	•	A1_4_Cor_Trauma_Mental_in_Different_Group_Stratified_by_Sex.R
-Conducts subgroup analyses stratified by sex to assess potential gender-specific effects.
+	•	A1_1_Cor_Trauma_Mental_all_Group.R：Computes correlations between trauma exposure and mental health outcomes in the entire UKB sample.
+	•	A1_2_Cor_Trauma_Mental_in_Different_Group.R：Examines differences in trauma–mental health correlations across resilience groups.
+	•	A1_3_Cor_Trauma_Mental_in_Different_Group_Sensitive_Analysis.R：Performs sensitivity analysis using resilience as a continuous variable.
+	•	A1_4_Cor_Trauma_Mental_in_Different_Group_Stratified_by_Sex.R：Conducts subgroup analyses stratified by sex to assess potential gender-specific effects.
 
 ⸻
 
