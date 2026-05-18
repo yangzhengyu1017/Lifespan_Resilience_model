@@ -23,7 +23,14 @@ library(janitor)
 # Data loading
 # -------------------------------
 resilience_group_R <- read_csv("~/Documents/ongoing_project/child_maltreatment_UKB/Resilience_modle/UKB_dat_for_analysis_1226.csv")[,-1]
+resilience_group_R$FU2_recent_trauma <- resilience_group_R$FU2_recent_trauma * 10
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 2, 6, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 3, 2, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 5, 2, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 4, 3, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 6, 4, Ethnic_group))
 
+resilience_group_R$Ethnic_group <- resilience_group_R$Ethnic_group - 1
 # -------------------------------
 # Group participants by self-resilience tertiles
 # -------------------------------
@@ -145,10 +152,10 @@ create_ggline_plot <- function(data, outcome_var) {
 # Baseline (BL) analysis
 # -------------------------------
 # Prepare dataset for BL
-resilience_group_R_BL <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI_BL", "Ethnic_group", "IMD",
-                                                 "self_resilience", "Depressive_Symptoms_PHQ4_BL", "PHQ9_Severity_FU1", "PHQ-9_FU2",
-                                                 "General_Anxiety_Disorder_Severity_FU1", "General_Anxiety_Disorder_Severity_FU2",
-                                                 "trauma_num", "FU_recent_trauma", "FU2_recent_trauma", "Education_year")]
+resilience_group_R_BL <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI_BL", "Ethnic_group", "IMD","site",
+                                                "self_resilience", "Depressive_Symptoms_PHQ4_BL", "PHQ9_Severity_FU1", "PHQ-9_FU2",
+                                                "General_Anxiety_Disorder_Severity_FU1", "General_Anxiety_Disorder_Severity_FU2",
+                                                "trauma_num", "FU_recent_trauma", "FU2_recent_trauma", "Education_year")]
 resilience_group_R_BL <- na.omit(resilience_group_R_BL)
 
 resilience_test_BL <- resilience_group_R_BL %>% 
@@ -175,7 +182,7 @@ comparison_results_BL <- compare_correlations(correlation_results_BL)
 # FU1 analysis
 # -------------------------------
 # Prepare FU1 dataset with demographic, resilience, and mental health variables
-resilience_group_R_FU1 <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI_BL", "Ethnic_group", "IMD",
+resilience_group_R_FU1 <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI_BL", "Ethnic_group", "IMD","site",
                                                  "self_resilience", "Depressive_Symptoms_PHQ4_BL", "PHQ9_Severity_FU1", "PHQ-9_FU2",
                                                  "General_Anxiety_Disorder_Severity_FU1", "General_Anxiety_Disorder_Severity_FU2",
                                                  "trauma_num", "FU_recent_trauma", "FU2_recent_trauma", "Education_year")]
@@ -222,7 +229,7 @@ print(comparison_results_FU1)
 # FU2 analysis
 # -------------------------------
 # Prepare FU2 dataset with relevant variables
-resilience_group_R_FU2 <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI_BL", "Ethnic_group", "IMD",
+resilience_group_R_FU2 <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI_BL", "Ethnic_group", "IMD","site",
                                                  "self_resilience", "Depressive_Symptoms_PHQ4_BL", "PHQ9_Severity_FU1", "PHQ-9_FU2",
                                                  "General_Anxiety_Disorder_Severity_FU1", "General_Anxiety_Disorder_Severity_FU2",
                                                  "trauma_num", "FU_recent_trauma", "FU2_recent_trauma", "Education_year")]
@@ -230,7 +237,7 @@ resilience_group_R_FU2 <- resilience_group_R[, c("eid", "age_BL", "gender", "BMI
 # Combine depressive and anxiety symptoms into a single FU2 mental symptom score (scaled 0-10)
 resilience_group_R_FU2$FU2_symptoms <- (resilience_group_R_FU2$`PHQ-9_FU2` / 28 + 
                                           resilience_group_R_FU2$General_Anxiety_Disorder_Severity_FU2 / 21) * 10
-
+resilience_group_R_FU2 <- na.omit(resilience_group_R_FU2)
 # Create FU2 analysis dataset
 resilience_test_FU2 <- resilience_group_R_FU2 %>% 
   transmute(
