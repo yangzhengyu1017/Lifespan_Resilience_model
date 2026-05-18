@@ -35,6 +35,14 @@ library(QuantPsyc)
 # Load data
 # -------------------------------
 resilience_group_R <- read_csv("~/Documents/ongoing_project/child_maltreatment_UKB/Resilience_modle/UKB_dat_for_analysis_1226.csv")[,-1]
+resilience_group_R$FU2_recent_trauma <- resilience_group_R$FU2_recent_trauma * 10
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 2, 6, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 3, 2, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 5, 2, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 4, 3, Ethnic_group))
+resilience_group_R <- mutate(resilience_group_R, Ethnic_group = ifelse(Ethnic_group == 6, 4, Ethnic_group))
+
+resilience_group_R$Ethnic_group <- resilience_group_R$Ethnic_group - 1
 
 # -------------------------------
 # Define partial correlation function
